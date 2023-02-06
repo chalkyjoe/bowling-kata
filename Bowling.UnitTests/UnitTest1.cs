@@ -1,5 +1,4 @@
 using Bowling.Application;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace Bowling.UnitTests
 {
@@ -25,11 +24,11 @@ namespace Bowling.UnitTests
             Assert.AreEqual(10, points);
         }
 
-        [Test]
-        public void CalculateScore_SingleSpare_ScoreCalculatedCorrectly()
+        [TestCase("1/ 1- -- -- -- -- -- -- -- --", 12)]
+        public void CalculateScore_SingleSpare_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
         {
-            var points = _scoreCalculator.CalculatePoints("1/ 1- -- -- -- -- -- -- -- --");
-            Assert.AreEqual(11, points);
+            var points = _scoreCalculator.CalculatePoints(scoreCard);
+            Assert.AreEqual(expectedResult, points);
         }
     }
 }

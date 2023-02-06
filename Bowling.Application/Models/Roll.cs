@@ -1,13 +1,18 @@
 ﻿namespace Bowling.Application.Models;
 
-internal class Roll
+public class Roll
 {
     public int Value { get; set; }
+    public bool IsSpare { get; set; }
     public Roll(char c)
     {
         if (int.TryParse(c.ToString(), out var value))
         {
             Value = value;
+        }
+        else if (c == '/')
+        {
+            IsSpare = true;
         }
     }
 }
