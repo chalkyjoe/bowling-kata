@@ -17,11 +17,19 @@ namespace Bowling.UnitTests
             var points = _scoreCalculator.CalculatePoints("-- -- -- -- -- -- -- -- -- --");
             Assert.AreEqual(0, points);
         }
+
         [Test]
         public void CalculateScore_NoSparesOrStrikes_ScoreCalculatedCorrectly()
         {
             var points = _scoreCalculator.CalculatePoints("1- 1- 1- 1- 1- 1- 1- 1- 1- 1-");
             Assert.AreEqual(10, points);
+        }
+
+        [Test]
+        public void CalculateScore_SingleSpare_ScoreCalculatedCorrectly()
+        {
+            var points = _scoreCalculator.CalculatePoints("1/ 1- -- -- -- -- -- -- -- --");
+            Assert.AreEqual(11, points);
         }
     }
 }

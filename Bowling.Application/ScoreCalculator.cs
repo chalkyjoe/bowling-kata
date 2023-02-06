@@ -4,7 +4,10 @@
     {
         public int CalculatePoints(string scoreSheet)
         {
-            return 0;
+            int points = 0;
+            var frames = scoreSheet.ToFrames();
+            points = frames.Sum(m => m.CalculateScore());
+            return points;
         }
     }
 }
