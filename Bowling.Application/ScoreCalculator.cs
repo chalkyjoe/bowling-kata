@@ -2,7 +2,7 @@
 {
     public class ScoreCalculator
     {
-        public int CalculateScore(string scoreSheet)
+        public int CalculatePoints(string scoreSheet)
         {
             return 0;
         }
