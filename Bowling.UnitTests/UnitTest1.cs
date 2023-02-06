@@ -12,10 +12,16 @@ namespace Bowling.UnitTests
         }
 
         [Test]
+        public void CalculateScore_NoPinsHit_ScoreIsZero()
+        {
+            var points = _scoreCalculator.CalculatePoints("-- -- -- -- -- -- -- -- -- --");
+            Assert.AreEqual(0, points);
+        }
+        [Test]
         public void CalculateScore_NoSparesOrStrikes_ScoreCalculatedCorrectly()
         {
-            var points = _scoreCalculator.CalculatePoints("22 22 22 22 22 22 22 22 22 22");
-            Assert.AreEqual(40, points);
+            var points = _scoreCalculator.CalculatePoints("1- 1- 1- 1- 1- 1- 1- 1- 1- 1-");
+            Assert.AreEqual(10, points);
         }
     }
 }
