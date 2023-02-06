@@ -5,17 +5,17 @@ namespace Bowling.UnitTests
 {
     public class Tests
     {
-        private ScoreCalculator
+        private ScoreCalculator _scoreCalculator = new ScoreCalculator();
         [SetUp]
         public void Setup()
         {
         }
 
         [Test]
-        public void Test1()
+        public void CalculateScore_NoSparesOrStrikes_ScoreCalculatedCorrectly()
         {
-            
-            Assert.Pass();
+            var points = _scoreCalculator.CalculatePoints("22 22 22 22 22 22 22 22 22 22");
+            Assert.AreEqual(40, points);
         }
     }
 }
