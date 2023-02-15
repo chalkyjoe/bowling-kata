@@ -27,7 +27,14 @@ namespace Bowling.UnitTests
         [TestCase("1/ 1- -- -- -- -- -- -- -- --", 12)]
         [TestCase("1/ 5/ 9- -- -- -- -- -- -- --", 43)]
         [TestCase("1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1-", 100)]
-        public void CalculateScore_SingleSpare_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
+        public void CalculateScore_Spares_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
+        {
+            var points = _scoreCalculator.CalculatePoints(scoreCard);
+            Assert.AreEqual(expectedResult, points);
+        }
+
+        [TestCase("X 11 -- -- -- -- -- -- -- --", 14)]
+        public void CalculateScore_Strikes_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
         {
             var points = _scoreCalculator.CalculatePoints(scoreCard);
             Assert.AreEqual(expectedResult, points);
