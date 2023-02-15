@@ -45,7 +45,7 @@ namespace Bowling.UnitTests
         [TestCase("X X X X X X X X X X X 1", 291)]
         [TestCase("X X X X X X X X X X 11", 273)]
         [TestCase("X X X X X X X X X 9/ 1", 270)]
-        public void CalculateScore_FinalFrameDiscrepencies_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
+        public void CalculateScore_FinalFrameDifferences_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
         {
             var points = _scoreCalculator.CalculatePoints(scoreCard);
             Assert.AreEqual(expectedResult, points);
