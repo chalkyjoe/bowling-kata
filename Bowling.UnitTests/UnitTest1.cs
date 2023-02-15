@@ -25,6 +25,8 @@ namespace Bowling.UnitTests
         }
 
         [TestCase("1/ 1- -- -- -- -- -- -- -- --", 12)]
+        [TestCase("1/ 5/ 9- -- -- -- -- -- -- --", 43)]
+        [TestCase("1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1/ 1-", 100)]
         public void CalculateScore_SingleSpare_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
         {
             var points = _scoreCalculator.CalculatePoints(scoreCard);

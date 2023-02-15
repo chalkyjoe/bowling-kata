@@ -12,11 +12,12 @@
         public int CalculateTotalScore()
         {
             var totalScore = 0;
-            while (Frames.TryDequeue(out var frame))
+            var frames = new Queue<Frame>(Frames ?? throw new InvalidOperationException("No Frames found"));
+            while (frames.TryDequeue(out var frame))
             {
                 if (frame.HasSpare)
                 {
-                    totalScore += CalculateFrame(frame, Frames.Peek());
+                    totalScore += CalculateFrameWithSpare(frames.Peek());
                 }
                 else
                 {
@@ -27,19 +28,15 @@
             return totalScore;
         }
 
-        private int CalculateFrame(Frame frame, Frame? nextFrame = null)
+        private int CalculateFrame(Frame frame)
         {
-            var frameScore = 0;
+            return frame.Rolls.Sum(x => x.Value);
+        }
 
-            if (nextFrame != null)
-            {
-                var nextRoll = nextFrame.Rolls.First().Value;
-                frameScore = nextRoll + 10;
-            }
-            else
-            {
-                frameScore = frame.Rolls.Sum(x => x.Value);
-            }
+        private int CalculateFrameWithSpare(Frame nextFrame)
+        {
+            var nextRoll = nextFrame.Rolls.First().Value;
+            var frameScore = nextRoll + 10;
 
             return frameScore;
         }
