@@ -2,7 +2,7 @@
 {
     public class Game
     {
-        public Queue<Frame>? Frames { get; set; }
+        public LinkedList<Frame>? Frames { get; set; }
 
         public Game(string scoreSheet)
         {
@@ -12,25 +12,42 @@
         public int CalculateTotalScore()
         {
             var totalScore = 0;
-            var frames = new Queue<Frame>(Frames ?? throw new InvalidOperationException("No Frames found"));
-            while (frames.TryDequeue(out var frame))
+            var frames = new LinkedList<Frame>(Frames ?? throw new InvalidOperationException("No Frames found"));
+            var frameNode = frames.First;
+            do
             {
-                if (frame.HasSpare)
+                if (frameNode.Value.HasSpare)
                 {
-                    totalScore += CalculateFrameWithSpare(frames.Peek());
+                    totalScore += CalculateFrameWithSpare(frameNode.Next.Value);
+                }
+                else if (frameNode.Value.HasStrike)
+                {
+                    totalScore += CalculateTotalScoreWithStrike(frameNode);
                 }
                 else
                 {
-                    totalScore += CalculateFrame(frame);
+                    totalScore += frameNode.Value.Score;
                 }
-            }
+
+                frameNode = frameNode.Next;
+            } while (frameNode is not null);
 
             return totalScore;
         }
 
-        private int CalculateFrame(Frame frame)
+        private int CalculateTotalScoreWithStrike(LinkedListNode<Frame> frame)
         {
-            return frame.Rolls.Sum(x => x.Value);
+            var totalScore = 0;
+            var nextFrame = frame.Next;
+
+            if (!nextFrame.Value.HasStrike)
+            {
+                return frame.Value.Score + nextFrame.Value.Score;
+            }
+
+            var secondFrame = nextFrame.Next;
+
+            return frame.Value.Score + nextFrame.Value.Score + secondFrame.Value.Rolls.First().Value;
         }
 
         private int CalculateFrameWithSpare(Frame nextFrame)
@@ -41,10 +58,10 @@
             return frameScore;
         }
 
-        private Queue<Frame> ToFrames(string scoreSheet)
+        private LinkedList<Frame> ToFrames(string scoreSheet)
         {
             var frames = scoreSheet.Split(" ").Select(m => new Frame(m));
-            return new Queue<Frame>(frames);
+            return new LinkedList<Frame>(frames);
         }
     }
 }
