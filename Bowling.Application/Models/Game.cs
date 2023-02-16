@@ -37,25 +37,26 @@
 
         private int CalculateTotalScoreWithStrike(LinkedListNode<Frame> frame)
         {
-            var totalScore = 0;
+            var totalScore = frame.Value.Score;
             var nextFrame = frame.Next;
 
-            if (nextFrame is null) // We may be able to remove this once we implement 10th, not sure yet though.
-            {
-                return frame.Value.Score;
-            }
+            if (nextFrame is null) 
+                return totalScore;
 
-            if (!nextFrame.Value.HasStrike || nextFrame.Next is null)
-            {
-                return frame.Value.Score + nextFrame.Value.Score;
-            }
+            totalScore += nextFrame.Value.Score;
+
+            if (!nextFrame.Value.HasStrike)
+                return totalScore;
 
             var secondFrame = nextFrame.Next;
 
-            return 
-                frame.Value.Score +
-                nextFrame.Value.Score +
-                secondFrame.Value.Rolls.First().Value;
+            if (secondFrame is null)
+                return totalScore;
+
+            totalScore += secondFrame.Value.Rolls.First().Value;
+
+
+            return totalScore;
         }
 
         private int CalculateFrameWithSpare(Frame nextFrame)
