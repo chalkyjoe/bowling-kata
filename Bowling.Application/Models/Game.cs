@@ -40,14 +40,22 @@
             var totalScore = 0;
             var nextFrame = frame.Next;
 
-            if (!nextFrame.Value.HasStrike)
+            if (nextFrame is null) // We may be able to remove this once we implement 10th, not sure yet though.
+            {
+                return frame.Value.Score;
+            }
+
+            if (!nextFrame.Value.HasStrike || nextFrame.Next is null)
             {
                 return frame.Value.Score + nextFrame.Value.Score;
             }
 
             var secondFrame = nextFrame.Next;
 
-            return frame.Value.Score + nextFrame.Value.Score + secondFrame.Value.Rolls.First().Value;
+            return 
+                frame.Value.Score +
+                nextFrame.Value.Score +
+                secondFrame.Value.Rolls.First().Value;
         }
 
         private int CalculateFrameWithSpare(Frame nextFrame)

@@ -35,7 +35,9 @@ namespace Bowling.UnitTests
 
         [TestCase("X 11 -- -- -- -- -- -- -- --", 14)]
         [TestCase("X 1/ 1- -- -- -- -- -- -- --", 32)]
+        [TestCase("X 1/ X- -- -- -- -- -- -- --", 50)]
         [TestCase("X X 11 -- -- -- -- -- -- --", 35)]
+        [TestCase("X X X X X X X X X X", 270)]
         public void CalculateScore_Strikes_ScoreCalculatedCorrectly(string scoreCard, int expectedResult)
         {
             var points = _scoreCalculator.CalculatePoints(scoreCard);

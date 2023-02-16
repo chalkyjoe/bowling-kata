@@ -14,10 +14,12 @@ public class Roll
         else if (c == '/')
         {
             IsSpare = true;
+            Value = 10;
         }
         else if (c == 'X')
         {
             IsStrike = true;
+            Value = 10;
         }
     }
 }
